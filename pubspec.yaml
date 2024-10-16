@@ -1,0 +1,20 @@
+name: flutter_status_avatar
+description: "A flutter package that provides avatar with badge status. Inspired by status on Slack or Lark"
+version: 1.0.0
+repository: https://github.com/andiilhamsyahidris/flutter_status_avatar
+issue_tracker: https://github.com/andiilhamsyahidris/flutter_status_avatar/issues
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
