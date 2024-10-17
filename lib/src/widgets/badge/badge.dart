@@ -2,7 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_status_avatar/flutter_status_avatar.dart'
     as flutter_status_avatar;
-import 'package:flutter_status_avatar/src/badge/badge_style.dart';
+import 'package:flutter_status_avatar/src/widgets/badge/badge_style.dart';
 
 /// A class that provides additional marker for [flutter_status_avatar.FlutterStatusAvatar]
 /// Using [badges.Badge]
@@ -12,7 +12,6 @@ class Badge extends StatelessWidget {
     super.key,
     this.badgeContent,
     this.badgeStyle = const BadgeStyle(),
-    this.onTap,
     this.child,
   });
 
@@ -21,11 +20,6 @@ class Badge extends StatelessWidget {
 
   /// The class that provides styling [Badge]
   final BadgeStyle badgeStyle;
-
-  /// The function to adding action when [Badge] is pressed
-  /// The additional padding will be applied to Make the full [Badge] clickable
-  /// if the [Badge] is outside of the child
-  final Function()? onTap;
 
   /// The widget below this [Badge] in the tree
   final Widget? child;
@@ -46,7 +40,6 @@ class Badge extends StatelessWidget {
         borderGradient: badgeStyle.borderGradient,
         padding: badgeStyle.padding,
       ),
-      onTap: onTap,
       child: child,
     );
   }
