@@ -24,9 +24,20 @@ class FlutterStatusAvatar extends StatefulWidget {
     this.child,
   });
 
+  /// The color with which to fill the circle
+  /// If a [backgroundColor] is not specified and [ThemeData.useMaterial3] is true
   final Color? backgroundColor;
+
+  /// The background image of the circle
+  /// If the avatar is have the user's initials, use [child] instead
   final ImageProvider<Object>? backgroundImage;
+
+  /// The size of the avatar, expressed as the radius
+  /// If [radius] is specified, then neither [minRadius] nor [maxRadius] is specified
   final double? radius;
+
+  /// The widget below this widget in the tree
+  /// Typically a [Text] widget. If the avatar is to have an image, use [backgroundImage] instead
   final Widget? child;
 
   @override
@@ -38,6 +49,8 @@ class _FlutterStatusAvatarState extends State<FlutterStatusAvatar> {
 
   @override
   Widget build(BuildContext context) {
+    /// See also
+    /// * [Badge]
     return badge.Badge(
       badgeContent: DropdownButton(
         value: Const.list.first,
