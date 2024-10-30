@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const Center(
         child: FlutterStatusAvatar(
           backgroundColor: Colors.blue,
-          radius: 24,
+          radius: 40,
         ),
       ),
     );

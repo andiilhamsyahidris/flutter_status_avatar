@@ -1,10 +1,15 @@
 import 'package:animated_emoji/animated_emoji.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_status_avatar/flutter_status_avatar.dart'
     as flutter_status_avatar;
+import 'package:flutter_status_avatar/src/utils/config.dart';
 import 'package:flutter_status_avatar/src/utils/const.dart';
 import 'package:flutter_status_avatar/src/widgets/avatar/frame.dart';
-import 'package:flutter_status_avatar/src/widgets/badge/badge.dart' as badge;
+import 'package:flutter_status_avatar/src/widgets/badge/flutter_status_badge.dart'
+    as flutter_status_badge;
+import 'package:flutter_status_avatar/src/widgets/badge/flutter_status_badge_style.dart';
+import 'package:flutter_status_avatar/src/widgets/status/flutter_status_item.dart';
 
 ///
 /// A widget that provides avatar with badge to display online status.
@@ -20,6 +25,7 @@ class FlutterStatusAvatar extends StatefulWidget {
     super.key,
     this.backgroundColor,
     this.backgroundImage,
+    this.style = const FlutterStatusBadgeStyle(),
     this.radius,
     this.child,
   });
@@ -31,6 +37,9 @@ class FlutterStatusAvatar extends StatefulWidget {
   /// The background image of the circle
   /// If the avatar is have the user's initials, use [child] instead
   final ImageProvider<Object>? backgroundImage;
+
+  /// Style of [FlutterStatusBadge] on the avatar
+  final FlutterStatusBadgeStyle style;
 
   /// The size of the avatar, expressed as the radius
   /// If [radius] is specified, then neither [minRadius] nor [maxRadius] is specified
@@ -49,27 +58,37 @@ class _FlutterStatusAvatarState extends State<FlutterStatusAvatar> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+
     /// See also
     /// * [Badge]
-    return badge.Badge(
-      badgeContent: DropdownButton(
-        value: Const.list.first,
-        items: Const.list.map<DropdownMenuItem<Map<String, dynamic>>>(
-          (emoji) {
-            return DropdownMenuItem(
-              value: emoji,
-              child: ListTile(
-                leading: AnimatedEmoji(emoji[Const.emojiKey]),
-                title: Text(emoji[Const.statusKey]),
+    return flutter_status_badge.FlutterStatusBadge(
+      flutterBadgeStyle: widget.style,
+      badgeContent: DropdownButtonHideUnderline(
+        child: DropdownButton2(
+          customButton: AnimatedEmoji(valueStatus[Const.emojiKey]),
+          items: [
+            ...Const.list.map(
+              (item) => DropdownMenuItem(
+                value: item,
+                child: FlutterStatusItem(item: item),
               ),
-            );
+            )
+          ],
+          onChanged: (value) {
+            setState(() {
+              if (value != null) valueStatus = value;
+            });
           },
-        ).toList(),
-        onChanged: (value) {
-          setState(() {
-            if (value != null) valueStatus = value;
-          });
-        },
+          dropdownStyleData: DropdownStyleData(
+            width: getScreenWidth(300),
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            offset: const Offset(0, 8),
+          ),
+        ),
       ),
       child: Frame(
         backgroundColor: widget.backgroundColor,

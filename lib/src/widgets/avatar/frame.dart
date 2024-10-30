@@ -63,6 +63,7 @@ class Frame extends StatelessWidget {
     return CircleAvatar(
       backgroundColor: backgroundColor,
       backgroundImage: backgroundImage,
+      radius: radius,
       minRadius: minRadius,
       maxRadius: maxRadius,
       child: child,
